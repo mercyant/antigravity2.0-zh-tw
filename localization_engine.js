@@ -4,7 +4,7 @@ const child_process = require('child_process');
 
 const PROJECT_ID = 'antigravity2-zh-hant-tw';
 const PROJECT_NAME = 'Antigravity 2.0 繁體中文套件';
-const ENGINE_VERSION = '1.0.7';
+const ENGINE_VERSION = '1.0.8';
 const SIGNATURE = 'ZH-HANT-TW';
 
 const SIGNATURE_START = '/* --- ANTIGRAVITY ZH-HANT-TW LOCALIZATION START --- */';
@@ -789,17 +789,17 @@ function install20(resourcesDir) {
         fs.rmSync(tempDir, { recursive: true, force: true });
     }
 
-    console.log('[解包] 正在解包 app.asar...');
+    console.log('[展開] 正在展開 app.asar...');
     const extractRes = runAsarCommand('extract', [asarPath, tempDir]);
     if (!extractRes.success || !fs.existsSync(tempDir)) {
-        console.error('[錯誤] 解包失敗，請確認已執行 npm install 並確認 Node.js 可正常使用。');
+        console.error('[錯誤] 展開失敗，請確認已執行 npm install 並確認 Node.js 可正常使用。');
         console.error(`詳情：${extractRes.stderr}\n${extractRes.stdout}`);
         return false;
     }
 
     const preloadPath = path.join(tempDir, 'dist', 'preload.js');
     if (!fs.existsSync(preloadPath)) {
-        console.error(`[錯誤] 解包後找不到 preload.js：${preloadPath}`);
+        console.error(`[錯誤] 展開後找不到 preload.js：${preloadPath}`);
         fs.rmSync(tempDir, { recursive: true, force: true });
         return false;
     }
